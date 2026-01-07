@@ -5,14 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tomoshibi - 心の灯火</title>
 <style>
-    /* === 1. ベース設定（空気感の土台） === */
-    :root {
-        --anime-speed: 1s;
-    }
+    /* === 1. ベース設定 === */
+    :root { --anime-speed: 1s; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body, html {
         height: 100%;
-        overflow: hidden; /* スクロールさせない */
+        overflow: hidden;
         background-color: #000;
     }
     body {
@@ -37,55 +35,36 @@
         max-width: 600px;
         padding: 2rem;
         position: relative;
-        z-index: 10; /* 背景アニメーションより前に出す */
+        z-index: 10;
         opacity: 0;
-        animation: fadeInApp 3s ease forwards 0.5s; /* 少し遅れて表示 */
+        animation: fadeInApp 3s ease forwards 0.5s;
     }
 
-    /* === 2. CSSリッチアニメーション (ここが心臓部) === */
-    /* 共通：アニメーションコンテナ */
+    /* === 2. CSSアニメーション === */
     .visual-container {
-        width: 100%;
-        height: 200px;
-        position: relative;
-        margin-bottom: 2rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden; /* はみ出した火の粉などを隠す */
+        width: 100%; height: 200px; position: relative;
+        margin-bottom: 2rem; display: flex;
+        justify-content: center; align-items: center; overflow: hidden;
     }
 
-    /* --- A. 焚き火 (Bonfire) --- */
+    /* A. 焚き火 */
     .bonfire-wrapper { position: relative; width: 80px; height: 80px; }
-    /* 火の芯（一番明るい部分） */
     .fire-core {
-        position: absolute; bottom: 0; left: 50%;
-        width: 40px; height: 40px;
-        background: #ffdd55;
-        border-radius: 50% 50% 30% 30%;
-        transform: translateX(-50%) scale(0.8);
-        filter: blur(5px);
+        position: absolute; bottom: 0; left: 50%; width: 40px; height: 40px;
+        background: #ffdd55; border-radius: 50% 50% 30% 30%;
+        transform: translateX(-50%) scale(0.8); filter: blur(5px);
         animation: flicker 0.5s infinite alternate ease-in-out;
     }
-    /* 外側の炎レイヤー */
     .fire-layer {
-        position: absolute; bottom: 0; left: 50%;
-        width: 60px; height: 60px;
-        background: #ff5a00;
-        border-radius: 40% 60% 60% 40% / 60% 30% 70% 40%;
-        transform: translateX(-50%);
-        filter: blur(10px);
-        opacity: 0.7;
+        position: absolute; bottom: 0; left: 50%; width: 60px; height: 60px;
+        background: #ff5a00; border-radius: 40% 60% 60% 40% / 60% 30% 70% 40%;
+        transform: translateX(-50%); filter: blur(10px); opacity: 0.7;
         animation: dance 2s infinite linear;
     }
     .fire-layer:nth-child(2) { animation-duration: 2.5s; animation-direction: reverse; background: #ff2a00; width: 70px; height: 70px; opacity: 0.5; }
-    /* 火の粉 */
     .ember {
-        position: absolute; bottom: 10px; left: 50%;
-        width: 4px; height: 4px; background: #ffdd55;
-        border-radius: 50%;
-        filter: blur(1px);
-        animation: rise 3s infinite linear;
+        position: absolute; bottom: 10px; left: 50%; width: 4px; height: 4px; background: #ffdd55;
+        border-radius: 50%; filter: blur(1px); animation: rise 3s infinite linear;
     }
     .ember:nth-child(4) { animation-delay: 0.5s; left: 45%; }
     .ember:nth-child(5) { animation-delay: 1.2s; left: 55%; transform: scale(0.8); }
@@ -94,14 +73,11 @@
     @keyframes dance { 0% { border-radius: 40% 60% 60% 40% / 60% 30% 70% 40%; transform: translateX(-50%) rotate(0deg); } 100% { border-radius: 60% 40% 30% 70% / 30% 60% 40% 60%; transform: translateX(-50%) rotate(360deg); } }
     @keyframes rise { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-150px) scale(0); opacity: 0; } }
 
-    /* --- B. 深海 (Deep Sea) --- */
+    /* B. 深海 */
     .bubble {
-        position: absolute; bottom: -20px;
-        background: rgba(255, 255, 255, 0.3);
-        border-radius: 50%;
-        animation: bubbleRise 8s infinite ease-in;
+        position: absolute; bottom: -20px; background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%; animation: bubbleRise 8s infinite ease-in;
     }
-    /* サイズと場所をランダムに */
     .bubble:nth-child(1) { width: 10px; height: 10px; left: 20%; animation-duration: 7s; }
     .bubble:nth-child(2) { width: 15px; height: 15px; left: 50%; animation-delay: 1s; animation-duration: 9s; }
     .bubble:nth-child(3) { width: 8px; height: 8px; left: 70%; animation-delay: 3s; }
@@ -112,25 +88,19 @@
         100% { transform: translateY(-300px) translateX(20px); opacity: 0; }
     }
 
-    /* --- C. 星空 (Starry Night) --- */
+    /* C. 星空 */
     .stars-wrapper { width: 100%; height: 100%; position: absolute; top:0; left:0; }
     .star {
-        position: absolute; background: #fff; border-radius: 50%;
-        animation: twinkle 4s infinite ease-in-out;
+        position: absolute; background: #fff; border-radius: 50%; animation: twinkle 4s infinite ease-in-out;
     }
-    /* 星の配置 */
     .star:nth-child(1) { top: 20%; left: 30%; width: 2px; height: 2px; animation-delay: 0.5s; }
     .star:nth-child(2) { top: 50%; left: 80%; width: 3px; height: 3px; animation-delay: 1s; }
     .star:nth-child(3) { top: 70%; left: 20%; width: 2px; height: 2px; }
     .star:nth-child(4) { top: 30%; left: 60%; width: 1px; height: 1px; animation-delay: 2s; }
-    /* 流れ星 */
     .shooting-star {
-        position: absolute; top: 10%; left: 80%;
-        width: 80px; height: 2px;
+        position: absolute; top: 10%; left: 80%; width: 80px; height: 2px;
         background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0));
-        animation: shoot 6s infinite ease-in-out;
-        animation-delay: 3s;
-        opacity: 0;
+        animation: shoot 6s infinite ease-in-out; animation-delay: 3s; opacity: 0;
     }
     @keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1); } }
     @keyframes shoot {
@@ -139,34 +109,22 @@
         100% { opacity: 0; }
     }
 
-
     /* === 3. UI要素 === */
     #message {
-        font-size: 1.3rem;
-        line-height: 2.2;
-        letter-spacing: 0.15em;
-        min-height: 150px;
-        text-shadow: 0 2px 15px rgba(0,0,0,0.7);
-        transition: opacity 1s;
-        font-feature-settings: "palt"; /* 文字詰め */
+        font-size: 1.3rem; line-height: 2.2; letter-spacing: 0.15em; min-height: 150px;
+        text-shadow: 0 2px 15px rgba(0,0,0,0.7); transition: opacity 1s; font-feature-settings: "palt";
     }
     #guide {
-        font-size: 0.9rem;
-        opacity: 0; /* 最初は隠す */
-        margin-top: 3rem;
-        font-family: sans-serif;
-        letter-spacing: 0.1em;
-        animation: pulseGuide 3s infinite ease-in-out 4s; /* 遅れて点滅開始 */
+        font-size: 0.9rem; opacity: 0; margin-top: 3rem; font-family: sans-serif;
+        letter-spacing: 0.1em; animation: pulseGuide 3s infinite ease-in-out 4s;
     }
 
-    /* === 4. UI用アニメーション === */
     @keyframes fadeInApp { to { opacity: 1; } }
     @keyframes pulseGuide { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.7; } }
     @keyframes textFloatUp {
         0% { transform: translateY(30px); opacity: 0; filter: blur(5px); }
         100% { transform: translateY(0); opacity: 1; filter: blur(0); }
     }
-
 </style>
 </head>
 <body>
@@ -177,13 +135,12 @@
 
     <div id="container">
         <div id="visual-area" class="visual-container"></div>
-
         <div id="message"></div>
         <div id="guide">画面をゆっくりタップしてください</div>
     </div>
 
     <script>
-        // --- 1. データと準備 ---
+        // --- 1. データ定義 ---
         const quotes = {
             bonfire: [
                 "あなたが今日飲み込んだ言葉は、いつか優しさに変わります。", "トイレに逃げ込んだ数分間は、あなたを守るための聖域でした。", "その仕事、命を削ってまでやる価値はありませんよ。", "期待に応えなくていい。今日はただ、生きて帰るだけで満点です。", "心臓がバクバクするのは、あなたが真剣に生きてきた証拠です。", "「逃げる」は、生きるための立派な戦略です。", "鎧を脱いでください。ここは、誰もあなたを攻撃しない場所です。", "他人の不機嫌は、他人の問題です。あなたの責任ではありません。", "今日できたことだけを数えましょう。できなかったことは、明日の風が運びます。", "辞表を検索履歴に残した夜も、あなたの人生の一部です。", "あなたは「会社員」である前に、守られるべき「人間」です。", "すり減った靴底は、あなたが今日まで戦い抜いた勲章です。", "深呼吸。メールの返信は、あなたの命より大事じゃありません。", "大丈夫。代わりがきかない仕事なんて、この世に一つもありません。", "泣きたくなるほど理不尽な世界で、よく今日を耐え抜きましたね。", "あなたの価値は、売り上げや成果などの数字では測れません。", "休むことに罪悪感を持たないで。それは「サボり」ではなく「修理」です。", "あの人の心無い一言は、受け取らなければ、あの人の手元に残ります。", "今はただ、燃える火を見てぼんやりしてください。思考停止は癒やしです。", "明日行けなかったら、行かなくていい。世界はそれでも回ります。"
@@ -196,7 +153,6 @@
             ]
         };
 
-        // CSSアニメーションのHTML構造
         const visuals = {
             bonfire: `<div class="bonfire-wrapper"><div class="fire-layer"></div><div class="fire-layer"></div><div class="fire-core"></div><div class="ember"></div><div class="ember"></div></div>`,
             deepsea: `<div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>`,
@@ -205,7 +161,7 @@
 
         let currentMode = '';
         let currentAudio = null;
-        let isFirstTap = true; // 初回タップ判定用
+        let isFirstTap = true;
         let isCoolingDown = false;
         
         const visualArea = document.getElementById('visual-area');
@@ -216,66 +172,66 @@
 
         // --- 2. モード初期化 ---
         function initMode() {
-            // 時間帯によるモード設定（テスト時はここを書き換えて確認できます）
             if (hour >= 6 && hour < 18) { currentMode = 'bonfire'; messageBox.innerHTML = "ようこそ。<br>今日も一日、お疲れ様でした。"; }
             else if (hour >= 2 && hour < 6) { currentMode = 'deepsea'; messageBox.innerHTML = "ようこそ。<br>ここは深く、静かな海の底です。"; }
             else { currentMode = 'starry'; messageBox.innerHTML = "ようこそ。<br>荷物を下ろして、夜空を見上げましょう。"; }
 
-            // 現在のモードのアニメーションと背景を適用
             body.className = `mode-${currentMode}`;
             visualArea.innerHTML = visuals[currentMode];
             currentAudio = document.getElementById(`bgm-${currentMode}`);
-            currentAudio.volume = 0; //最初は音量ゼロ
+            currentAudio.volume = 0; 
         }
 
-        // --- 3. 音のフェードイン処理 ---
+        // --- 3. 音声再生の強化版 ---
         function fadeInAudio(audio) {
             if (!audio) return;
-            // 音源ファイルがロードされていない場合は再生できないのでエラー回避
-            if (audio.readyState === 0) { console.log("Audio file not found, skipping playback."); return; }
-
+            
+            // 強制的に再生を試みる（エラーが出ても無視せずコンソールに出す）
             audio.play().then(() => {
+                // 再生成功したら音量を上げる
+                console.log("Audio started. Fading in...");
                 let vol = 0;
                 const interval = setInterval(() => {
-                    if (vol < 0.5) { // 最大音量を0.5に設定（うるさすぎないように）
-                        vol += 0.02;
+                    if (vol < 0.5) { 
+                        vol += 0.05; // 少し早くフェードイン
                         audio.volume = vol;
                     } else {
                         clearInterval(interval);
                     }
-                }, 200); // 0.2秒ごとに音量を上げる
-            }).catch(e => console.log("Audio play failed (maybe no user interaction yet):", e));
+                }, 200); 
+            }).catch(e => {
+                console.error("再生エラー: まだ読み込み中か、タップが認識されていません", e);
+            });
         }
 
-
-        // --- 4. タップ時のアクション（核心） ---
+        // --- 4. タップ時処理 ---
         function handleTap() {
-            // 初回タップ時のみ音をフェードイン再生
             if (isFirstTap) {
-                fadeInAudio(currentAudio);
-                guideBox.style.animation = 'none'; // ガイドの点滅を止める
-                guideBox.style.opacity = 0; // ガイドを消す
+                // ここで音声読み込みを確実にする
+                if(currentAudio) {
+                    currentAudio.load(); // 念押しでロード
+                    fadeInAudio(currentAudio);
+                }
+                
+                guideBox.style.animation = 'none';
+                guideBox.style.opacity = 0;
                 isFirstTap = false;
             }
 
             if (isCoolingDown) return;
 
-            // 言葉を選ぶ
             const list = quotes[currentMode];
             const randomQuote = list[Math.floor(Math.random() * list.length)];
 
-            // テキストのアニメーション（ブラーがかかって浮き上がる）
             messageBox.style.animation = 'none';
-            messageBox.offsetHeight; /* trigger reflow */
+            messageBox.offsetHeight; 
             messageBox.textContent = randomQuote;
             messageBox.style.animation = 'textFloatUp 2s ease forwards';
 
-            // クールダウン
             isCoolingDown = true;
-            setTimeout(() => { isCoolingDown = false; }, 3000); // 3秒間は次の言葉が出ない
+            setTimeout(() => { isCoolingDown = false; }, 3000); 
         }
 
-        // 実行
         initMode();
         document.body.addEventListener('click', handleTap, { once: false });
 
